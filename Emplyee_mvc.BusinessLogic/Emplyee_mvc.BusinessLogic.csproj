@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,9 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Emplyee_mvc.BusinessLogic\Emplyee_mvc.BusinessLogic.csproj" />
     <ProjectReference Include="..\Emplyee_mvc.DataAccess\Emplyee_mvc.DataAccess.csproj" />
-    <ProjectReference Include="..\Emplyee_mvc.WebApp\Emplyee_mvc.WebApp.csproj" />
   </ItemGroup>
 
 </Project>

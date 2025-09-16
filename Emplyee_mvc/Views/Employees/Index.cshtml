@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Emplyee_mvc.DataAccess.Models.Employee>
+
+<h1>All Employees</h1>
+<a class="btn btn-primary mb-3" asp-action="Create">Create Employee</a>
+
+@if (Model.Any())
+{
+    <table class="table table-striped table-hover">
+        <thead class="text-center">
+            <tr>
+                <th>@Html.DisplayNameFor(e => e.Name)</th>
+                <th>@Html.DisplayNameFor(e => e.Email)</th>
+                <th>@Html.DisplayNameFor(e => e.HiringDate)</th>
+                <th>@Html.DisplayNameFor(e => e.Salary)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    <td>@emp.Name</td>
+                    <td>@emp.Email</td>
+                    <td>@emp.HiringDate.ToShortDateString()</td>
+                    <td>@emp.Salary</td>
+                    <td>
+                        <a class="btn btn-info" asp-action="Details" asp-route-id="@emp.Id">Details</a>
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@emp.Id">Edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@emp.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">No Employees Found !!</div>
+}
+
