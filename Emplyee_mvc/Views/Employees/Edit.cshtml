@@ -1,0 +1,26 @@
+﻿@model Emplyee_mvc.DataAccess.Models.Employee
+
+<h1>Employee Details</h1>
+<div class="border p-3">
+    <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+
+        <dt class="col-sm-3">Hiring Date</dt>
+        <dd class="col-sm-9">@Model.HiringDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-3">Salary</dt>
+        <dd class="col-sm-9">@Model.Salary</dd>
+
+        <dt class="col-sm-3">Gender</dt>
+        <dd class="col-sm-9">@Model.Gender</dd>
+
+        <dt class="col-sm-3">Employee Type</dt>
+        <dd class="col-sm-9">@Model.EmployeeType</dd>
+    </dl>
+</div>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>
