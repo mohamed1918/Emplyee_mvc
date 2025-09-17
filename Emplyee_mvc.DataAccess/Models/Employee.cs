@@ -31,8 +31,11 @@ namespace Emplyee_mvc.DataAccess.Models
         public decimal Salary { get; set; }
         public bool IsActive { get; set; } = true;
 
+
+        public DateTime DateOfCreation { get; set; } = DateTime.UtcNow;
         public string? CreatedBy { get; set; }
         public string? LastModifiedBy { get; set; }
         public DateTime? LastModifiedOn { get; set; }
+
     }
 }
