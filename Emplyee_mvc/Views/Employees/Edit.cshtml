@@ -24,3 +24,7 @@
 </div>
 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
 <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
