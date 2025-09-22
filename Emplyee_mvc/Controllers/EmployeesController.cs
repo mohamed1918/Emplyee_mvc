@@ -1,43 +1,60 @@
-﻿using Emplyee_mvc.BusinessLogic.Interfaces;
+﻿using Emplyee_mvc.DataAccess;
 using Emplyee_mvc.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
-namespace Emplyee_mvc.Controllers
+namespace Emplyee_mvc.WebApp.Controllers
 {
     public class EmployeesController : Controller
     {
-        private readonly IEmployeeService _service;
-        public EmployeesController(IEmployeeService service) => _service = service;
+        private readonly ApplicationDbContext _context;
 
-        public IActionResult Index() => View(_service.GetAll());
-        public IActionResult Details(int id) => View(_service.GetById(id));
-        public IActionResult Create() => View();
+        public EmployeesController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
+        
+        public IActionResult Index(string employeeSearchName)
+        {
+            var query = _context.Employees
+                                .Include(e => e.Department)
+                                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(employeeSearchName))
+            {
+                query = query.Where(e => e.Name.Contains(employeeSearchName));
+            }
+
+            return View(query.ToList());
+        }
+
+        
+        public IActionResult Create()
+        {
+            new SelectList(ViewBag.Departments.ToList(), "Id", "Name");
+
+            return View();
+        }
+
+        
         [HttpPost]
         public IActionResult Create(Employee employee)
         {
-            if (!ModelState.IsValid) return View(employee);
-            _service.Create(employee);
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _context.Employees.Add(employee);
+                _context.SaveChanges();
+
+                TempData["Message"] = "Employee created successfully!";
+                return RedirectToAction("Index");
+            }
+
+            new SelectList(ViewBag.Departments.ToList(), "Id", "Name");
+            return View(employee);
         }
 
-        public IActionResult Edit(int id) => View(_service.GetById(id));
-
-        [HttpPost]
-        public IActionResult Edit(Employee employee)
-        {
-            if (!ModelState.IsValid) return View(employee);
-            _service.Update(employee);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult Delete(int id) => View(_service.GetById(id));
-
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            _service.Delete(id);
-            return RedirectToAction(nameof(Index));
-        }
+        
     }
 }

@@ -1,64 +1,53 @@
-﻿@model Emplyee_mvc.DataAccess.Models.Employee
+﻿@model IEnumerable<Emplyee_mvc.DataAccess.Models.Employee>
 
-<h1 class="mb-4">Create Employee</h1>
+<div class="m-2">
+    <form asp-action="Index" method="get" class="row offset-2">
+        <div class="col-8">
+            <input class="form-control" type="text" name="employeeSearchName" placeholder="Search Employee By Name" />
+        </div>
+        <div class="col-4">
+            <input type="submit" class="btn btn-outline-success" value="Search" />
+        </div>
+    </form>
+</div>
 
-<form asp-action="Create" method="post">
-    <div class="form-group mb-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Department</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.Name</td>
+                <td>@employee.Title</td>
+                <td>@employee.Department?.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-success">Edit</a>
+                    <a asp-action="Details" asp-route-id="@employee.Id" class="btn btn-primary">Details</a>
+                    <a asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div aria-live="polite" aria-atomic="true" class="toast-container position-fixed p-3" style="bottom:25px; right:25px; z-index:100;">
+    <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto text-success">Success!!</strong>
+            <small>Just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            @TempData["Message"]
+        </div>
     </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="Age" class="form-label"></label>
-        <input asp-for="Age" class="form-control" />
-        <span asp-validation-for="Age" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="Email" class="form-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="PhoneNumber" class="form-label"></label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="HiringDate" class="form-label"></label>
-        <input asp-for="HiringDate" type="date" class="form-control" />
-        <span asp-validation-for="HiringDate" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="Gender" class="form-label"></label>
-        <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Emplyee_mvc.DataAccess.Models.Gender>()" class="form-select"></select>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="EmployeeType" class="form-label"></label>
-        <select asp-for="EmployeeType" asp-items="Html.GetEnumSelectList<Emplyee_mvc.DataAccess.Models.EmployeeType>()" class="form-select"></select>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="Salary" class="form-label"></label>
-        <input asp-for="Salary" class="form-control" />
-        <span asp-validation-for="Salary" class="text-danger"></span>
-    </div>
-
-    <div class="form-check mb-3">
-        <input asp-for="IsActive" class="form-check-input" />
-        <label asp-for="IsActive" class="form-check-label"></label>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Create</button>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-</form>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+</div>
 

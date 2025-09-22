@@ -37,5 +37,9 @@ namespace Emplyee_mvc.DataAccess.Models
         public string? LastModifiedBy { get; set; }
         public DateTime? LastModifiedOn { get; set; }
 
+        
+
+        public int DepartmentId { get; set; }
+        public Department? Department { get; set; }
     }
 }

@@ -28,3 +28,13 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<div class="form-group mb-3">
+    <label asp-for="DepartmentId" class="form-label"></label>
+    <select asp-for="DepartmentId"
+            asp-items="@(new SelectList(ViewBag.Departments, "Id", "Name"))"
+            class="form-control">
+        <option value="">-- choose department --</option>
+    </select>
+    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+</div>
