@@ -13,5 +13,8 @@ namespace Emplyee_mvc.DataAccess
             : base(options) { }
 
         public DbSet<Employee> Employees => Set<Employee>();
+
+        public DbSet<Department> Departments { get; set; }
+
     }
 }
