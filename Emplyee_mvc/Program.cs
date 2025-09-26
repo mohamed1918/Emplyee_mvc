@@ -1,4 +1,5 @@
 using Emplyee_mvc.BusinessLogic.Interfaces;
+using Emplyee_mvc.BusinessLogic.Repositories;
 using Emplyee_mvc.BusinessLogic.Services;
 using Emplyee_mvc.DataAccess;
 using Emplyee_mvc.DataAccess.Repositories;
@@ -21,6 +22,10 @@ namespace Emplyee_mvc
             
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+
 
             var app = builder.Build();
 
